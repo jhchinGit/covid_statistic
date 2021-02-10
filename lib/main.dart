@@ -35,8 +35,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Covid Statistic App',
       home: Scaffold(
+        backgroundColor: Color.fromRGBO(246, 236, 240, 1.0),
         appBar: AppBar(
-          title: Text('Covid Statistic'),
+          title: Text('Covid Status'),
         ),
         body: BlocProvider(
           create: (context) => MyReportBloc(repository: repository),
