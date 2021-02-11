@@ -25,3 +25,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+  fonts:
+    - family: Comfortaa
+      fonts:
+        - asset: fonts/Comfortaa-Medium.ttf

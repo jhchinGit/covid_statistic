@@ -34,10 +34,18 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Covid Statistic App',
+      theme: ThemeData(fontFamily: 'Comfortaa'),
       home: Scaffold(
         backgroundColor: Color.fromRGBO(246, 236, 240, 1.0),
         appBar: AppBar(
-          title: Text('Covid Status'),
+          title: Text(
+            'Covid-19 Status',
+            style: TextStyle(
+                color: Color.fromRGBO(43, 65, 66, 1.0),
+                fontWeight: FontWeight.bold,
+                fontSize: 14),
+          ),
+          backgroundColor: Colors.white,
         ),
         body: BlocProvider(
           create: (context) => MyReportBloc(repository: repository),

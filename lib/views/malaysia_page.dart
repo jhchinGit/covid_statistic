@@ -53,7 +53,7 @@ class MalaysiaPage extends StatelessWidget {
                           Container(
                               padding: EdgeInsets.only(left: 10, top: 5),
                               child: Text(
-                                new DateFormat('dd/MMM/yyyy hh:mm')
+                                new DateFormat('h:mm a - dd MMM yyyy')
                                     .format(state.myReport.lastUpdated),
                                 style: TextStyle(
                                     fontSize: 12,
@@ -68,13 +68,51 @@ class MalaysiaPage extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.only(left: 10, top: 10),
                         child: Text(
-                          "Last Update: ",
+                          "Total Cases: ",
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Color.fromRGBO(167, 197, 235, 1)),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
                         ),
-                      )
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 10, top: 10),
+                        child: Text(
+                          NumberFormat('#,###,000')
+                              .format(state.myReport.testedPositive),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      _newCasesRow(state.myReport.todayConfirmCases),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: 10, top: 10),
+                        child: Text(
+                          "Deceased: ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 10, top: 10),
+                        child: Text(
+                          NumberFormat('#,###,000')
+                              .format(state.myReport.deceased),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      _newCasesRow(state.myReport.todayDeceasedCases)
                     ],
                   )
                 ],
@@ -87,5 +125,26 @@ class MalaysiaPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  Row _newCasesRow(int cases) {
+    if (cases == 0) {
+      return Row();
+    } else {
+      return Row(
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 10, top: 10),
+            child: Text(
+              "+" + NumberFormat('#,###').format(cases),
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+              ),
+            ),
+          )
+        ],
+      );
+    }
   }
 }

@@ -1,21 +1,26 @@
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 
 class MyReport extends Equatable {
   final int testedPositive;
   final int recovered;
   final int activeCases;
+  final int todayConfirmCases;
   final int inICU;
   final int respiratoryAid;
   final int deceased;
+  final int todayDeceasedCases;
   final DateTime lastUpdated;
 
   MyReport(
       {this.testedPositive,
       this.recovered,
       this.activeCases,
+      this.todayConfirmCases,
       this.inICU,
       this.respiratoryAid,
       this.deceased,
+      this.todayDeceasedCases,
       this.lastUpdated});
 
   @override
@@ -23,21 +28,53 @@ class MyReport extends Equatable {
         testedPositive,
         recovered,
         activeCases,
+        todayConfirmCases,
         inICU,
         respiratoryAid,
         deceased,
+        todayDeceasedCases,
         lastUpdated
       ];
 
   static MyReport fromJson(dynamic json) {
+    int jsonCount = json.toList().length;
+    var todayJson = json[jsonCount - 1];
+    var lastUpdate = DateTime.parse(todayJson['lastUpdatedAtApify'].toString());
+    var yesterdayJson = json[_getYesterdayJsonIndex(
+        int.parse(DateFormat('d').format(lastUpdate)), json)];
+
     return MyReport(
-        testedPositive: json['testedPositive'],
-        recovered: json['recovered'],
-        activeCases: json['activeCases'],
-        inICU: json['inICU'],
-        respiratoryAid: json['respiratoryAid'],
-        deceased: json['deceased'],
-        lastUpdated: DateTime.parse(json['lastUpdatedAtApify'].toString()));
+        testedPositive: todayJson['testedPositive'],
+        recovered: todayJson['recovered'],
+        activeCases: todayJson['activeCases'],
+        todayConfirmCases:
+            todayJson['testedPositive'] - yesterdayJson['testedPositive'],
+        inICU: todayJson['inICU'],
+        respiratoryAid: todayJson['respiratoryAid'],
+        deceased: todayJson['deceased'],
+        todayDeceasedCases: todayJson['deceased'] - yesterdayJson['deceased'],
+        lastUpdated: lastUpdate);
+  }
+
+  static int _getYesterdayJsonIndex(int dayOfToday, dynamic reportList) {
+    if (reportList.length == 0) {
+      return -1;
+    }
+
+    var index = reportList.length - 2;
+    var yesterdayJsonIndex = -1;
+
+    while (yesterdayJsonIndex == -1) {
+      var yesterday = int.parse(DateFormat('d').format(
+          DateTime.parse(reportList[index]['lastUpdatedAtApify'].toString())));
+
+      if (yesterday != dayOfToday) {
+        yesterdayJsonIndex = index;
+      }
+      index--;
+    }
+
+    return yesterdayJsonIndex;
   }
 
   @override
