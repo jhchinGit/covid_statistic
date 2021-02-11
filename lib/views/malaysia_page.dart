@@ -19,105 +19,202 @@ class MalaysiaPage extends StatelessWidget {
           );
         }
         if (state is MyReportLoaded) {
-          return Container(
-            height: 300,
-            child: Card(
-              margin: EdgeInsets.all(20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Column(
+          return Column(
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 10, top: 10),
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20.0),
-                            child: Image.asset('images/flag_my.png',
-                                width: 40, height: 40, fit: BoxFit.fill)),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 10, top: 5),
-                              child: Text(
-                                "Malaysia",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              )),
-                          Container(
-                              padding: EdgeInsets.only(left: 10, top: 5),
-                              child: Text(
-                                new DateFormat('h:mm a - dd MMM yyyy')
-                                    .format(state.myReport.lastUpdated),
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Color.fromRGBO(133, 126, 129, 1)),
-                              ))
-                        ],
-                      )
-                    ],
+                  Container(
+                    padding: EdgeInsets.only(left: 20, top: 20),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image.asset('images/flag_my.png',
+                            width: 40, height: 40, fit: BoxFit.fill)),
                   ),
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(left: 10, top: 10),
-                        child: Text(
-                          "Total Cases: ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.only(left: 10, top: 20),
+                          child: Text(
+                            "Malaysia",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          )),
                       Container(
-                        padding: EdgeInsets.only(left: 10, top: 10),
-                        child: Text(
-                          NumberFormat('#,###,000')
-                              .format(state.myReport.testedPositive),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                      _newCasesRow(state.myReport.todayConfirmCases),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 10, top: 10),
-                        child: Text(
-                          "Deceased: ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 10, top: 10),
-                        child: Text(
-                          NumberFormat('#,###,000')
-                              .format(state.myReport.deceased),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                      _newCasesRow(state.myReport.todayDeceasedCases)
+                          padding: EdgeInsets.only(left: 10, top: 5),
+                          child: Text(
+                            new DateFormat('h:mm a - dd MMM yyyy')
+                                .format(state.myReport.lastUpdated),
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Color.fromRGBO(133, 126, 129, 1)),
+                          ))
                     ],
                   )
                 ],
               ),
-            ),
+              Container(
+                height: 400,
+                child: Card(
+                    margin: EdgeInsets.only(
+                        left: 20, right: 20, bottom: 20, top: 10),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Colors.white),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 10, top: 10),
+                                  child: Text(
+                                    "Total Cases: ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 10, top: 10),
+                                  child: Text(
+                                    NumberFormat('#,###,000')
+                                        .format(state.myReport.testedPositive),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                _newCasesRow(state.myReport.todayConfirmCases),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Text(
+                                  "Total Cases: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Text(
+                                  NumberFormat('#,###,000')
+                                      .format(state.myReport.testedPositive),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              _newCasesRow(state.myReport.todayConfirmCases),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Text(
+                                  "Active Cases: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Text(
+                                  NumberFormat('#,###,000')
+                                      .format(state.myReport.activeCases),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              _newCasesRow(state.myReport.todayActiveCases)
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Text(
+                                  "Deceased Cases: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Text(
+                                  NumberFormat('#,###,000')
+                                      .format(state.myReport.deceased),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              _newCasesRow(state.myReport.todayDeceasedCases)
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Text(
+                                  "Recovered Cases: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Text(
+                                  NumberFormat('#,###,000')
+                                      .format(state.myReport.recovered),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              _newCasesRow(state.myReport.todayRecovered),
+                            ],
+                          ),
+                          Text(state.myReport.positiveRate.toStringAsFixed(2) +
+                              '%'),
+                          Text(state.myReport.activeRate.toStringAsFixed(2) +
+                              '%'),
+                          Text(state.myReport.deceaseRate.toStringAsFixed(2) +
+                              '%'),
+                          Text(state.myReport.recoveredRate.toStringAsFixed(2) +
+                              '%')
+                        ],
+                      ),
+                    )),
+              )
+            ],
           );
         }
         return Center(
@@ -134,13 +231,14 @@ class MalaysiaPage extends StatelessWidget {
       return Row(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 10, top: 10),
+            padding: EdgeInsets.only(left: 5, top: 10),
             child: Text(
               "+" + NumberFormat('#,###').format(cases),
               style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-              ),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.green),
             ),
           )
         ],
