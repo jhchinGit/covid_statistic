@@ -58,6 +58,93 @@ class MalaysiaPage extends StatelessWidget {
                 ],
               ),
               Container(
+                height: 100,
+                child: Card(
+                    margin: EdgeInsets.only(
+                        left: 20, right: 20, bottom: 20, top: 10),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Colors.white),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(left: 25),
+                                    child: Icon(
+                                      Icons.alarm_on,
+                                      color: Colors.black,
+                                      size: 25,
+                                    ),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding:
+                                            EdgeInsets.only(left: 15, top: 15),
+                                        child: Text(
+                                          "Total Cases: ",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                left: 15, top: 10),
+                                            child: Text(
+                                              NumberFormat('#,###,000').format(
+                                                  state
+                                                      .myReport.testedPositive),
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                          _newCasesRow(
+                                              state.myReport.todayConfirmCases)
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                        child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          state.myReport.positiveRate
+                                                  .toStringAsFixed(2) +
+                                              '%',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+              ),
+              Container(
                 height: 400,
                 child: Card(
                     margin: EdgeInsets.only(
@@ -70,34 +157,6 @@ class MalaysiaPage extends StatelessWidget {
                           color: Colors.white),
                       child: Column(
                         children: [
-                          Container(
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: 10, top: 10),
-                                  child: Text(
-                                    "Total Cases: ",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(left: 10, top: 10),
-                                  child: Text(
-                                    NumberFormat('#,###,000')
-                                        .format(state.myReport.testedPositive),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                _newCasesRow(state.myReport.todayConfirmCases),
-                              ],
-                            ),
-                          ),
                           Row(
                             children: [
                               Container(
