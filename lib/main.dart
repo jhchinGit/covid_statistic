@@ -1,3 +1,5 @@
+import 'package:covid_statistic/views/country_menu.dart';
+import 'package:covid_statistic/views/malaysia_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
@@ -7,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:covid_statistic/bloc/bloc.dart';
 import 'package:covid_statistic/repositories/report_api_client.dart';
 import 'package:covid_statistic/repositories/repositories.dart';
-import 'package:covid_statistic/views/malaysia_page.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -25,6 +26,7 @@ void main() {
 
 class App extends StatelessWidget {
   final ReportRepository repository;
+  final navigatorKey = GlobalKey<NavigatorState>();
 
   App({Key key, @required this.repository})
       : assert(repository != null),
@@ -33,7 +35,14 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/myReport': (context) => MalaysiaPage(
+              repository: repository,
+            ),
+      },
       title: 'Covid Statistic App',
       theme: ThemeData(fontFamily: 'Comfortaa'),
       home: Scaffold(
@@ -48,9 +57,17 @@ class App extends StatelessWidget {
           ),
           backgroundColor: Colors.white,
         ),
-        body: BlocProvider(
-          create: (context) => MyReportBloc(repository: repository),
-          child: MalaysiaPage(),
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => MyReportBloc(repository: repository),
+            ),
+            BlocProvider(
+              create: (context) => NavigatorBloc(
+                  navigatorKey: navigatorKey, repository: repository),
+            ),
+          ],
+          child: CountryMenu(),
         ),
       ),
     );
