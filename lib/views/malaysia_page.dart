@@ -6,7 +6,7 @@ import 'package:covid_statistic/bloc/bloc.dart';
 import 'package:covid_statistic/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 
-import 'statistic_app_bar.dart';
+import '../widgets/statistic_app_bar.dart';
 
 class MalaysiaPage extends StatelessWidget {
   final ReportRepository repository;
@@ -25,6 +25,7 @@ class MalaysiaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StatisticAppBar(
+      title: "Malaysia Status",
       body: SingleChildScrollView(
         child: BlocProvider(
           create: (context) => MyReportBloc(repository: repository),
@@ -47,19 +48,19 @@ class MalaysiaPage extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          padding:
-                              EdgeInsets.only(left: 20, top: 10, bottom: 10),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child: Image.asset('images/flag_my.png',
-                                  width: 40, height: 40, fit: BoxFit.fill)),
-                        ),
+                            padding:
+                                EdgeInsets.only(left: 20, top: 20, bottom: 20),
+                            child: RoundImage(
+                              fileAndPathName: 'images/flag_my.png',
+                              width: 40,
+                              height: 40,
+                            )),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                                 alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.only(left: 10, top: 10),
+                                padding: EdgeInsets.only(left: 10, top: 20),
                                 child: Text(
                                   "Malaysia",
                                   textAlign: TextAlign.left,
@@ -70,7 +71,7 @@ class MalaysiaPage extends StatelessWidget {
                                 )),
                             Container(
                                 padding: EdgeInsets.only(
-                                    left: 10, top: 5, bottom: 10),
+                                    left: 10, top: 5, bottom: 20),
                                 child: Text(
                                   new DateFormat('h:mm a - dd MMM yyyy')
                                       .format(state.myReport.lastUpdated),

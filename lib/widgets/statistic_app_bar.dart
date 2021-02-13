@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class StatisticAppBar extends StatelessWidget {
+  final String title;
   final Widget body;
 
-  StatisticAppBar({this.body}) : assert(body != null);
+  StatisticAppBar({this.title, this.body}) : assert(body != null);
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,7 @@ class StatisticAppBar extends StatelessWidget {
       backgroundColor: Color.fromRGBO(246, 236, 240, 1.0),
       appBar: AppBar(
         title: Text(
-          'Status',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          title,
         ),
       ),
       body: body,

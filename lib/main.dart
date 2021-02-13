@@ -1,5 +1,5 @@
 import 'package:covid_statistic/views/country_menu.dart';
-import 'package:covid_statistic/views/statistic_app_bar.dart';
+import 'package:covid_statistic/widgets/statistic_app_bar.dart';
 import 'package:covid_statistic/views/malaysia_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -47,6 +47,7 @@ class App extends StatelessWidget {
       title: 'Covid Statistic App',
       theme: ThemeData(fontFamily: 'Comfortaa'),
       home: StatisticAppBar(
+        title: "Covid-19 Status",
         body: BlocProvider(
           create: (context) =>
               NavigatorBloc(navigatorKey: navigatorKey, repository: repository),
