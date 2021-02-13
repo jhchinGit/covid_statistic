@@ -98,9 +98,9 @@ class ReportCardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     var caseRateOperator = newCaseRate >= 0 ? "+" : "";
     return Container(
-      height: 90,
+      height: 80,
       child: Card(
-          margin: EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 15),
+          margin: EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 5),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15))),
           child: Container(
