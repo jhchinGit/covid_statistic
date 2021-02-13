@@ -11,6 +11,13 @@ class NavigateToMalaysiaReportEvent extends NavigatorEvent {
   List<Object> get props => [];
 }
 
+class NavigateToIndiaReportEvent extends NavigatorEvent {
+  NavigateToIndiaReportEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
 class NavigatorActionPop extends NavigatorEvent {
   NavigatorActionPop();
 

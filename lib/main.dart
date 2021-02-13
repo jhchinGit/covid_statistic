@@ -1,3 +1,4 @@
+import 'package:covid_statistic/views/India_page.dart';
 import 'package:covid_statistic/views/country_menu.dart';
 import 'package:covid_statistic/widgets/statistic_app_bar.dart';
 import 'package:covid_statistic/views/malaysia_page.dart';
@@ -41,6 +42,9 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/myReport': (context) => MalaysiaPage(
+              repository: repository,
+            ),
+        '/inReport': (context) => IndiaPage(
               repository: repository,
             ),
       },

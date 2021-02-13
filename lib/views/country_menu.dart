@@ -23,7 +23,7 @@ class CountryMenu extends StatelessWidget {
                 name: "INDIA",
                 callback: () {
                   BlocProvider.of<NavigatorBloc>(context)
-                      .add(NavigateToMalaysiaReportEvent());
+                      .add(NavigateToIndiaReportEvent());
                 }),
           ],
         ),

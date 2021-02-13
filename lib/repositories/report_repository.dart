@@ -11,4 +11,7 @@ class ReportRepository {
 
   Future<MyReport> fetchMalaysiaCovidReport() async =>
       await reportApiClient.fetchMalaysiaCovidReport();
+
+  Future<InReport> fetchIndiaCovidReport() async =>
+      await reportApiClient.fetchIndiaCovidReport();
 }
