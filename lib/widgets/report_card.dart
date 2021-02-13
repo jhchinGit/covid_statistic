@@ -194,68 +194,56 @@ class ReportCardContent extends StatelessWidget {
                     color: backgroundColor),
                 child: Column(
                   children: [
-                    Expanded(
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 20),
-                              child: Icon(
-                                cardIcon,
-                                color: Colors.black,
-                                size: 25,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: 20, top: 15),
-                                  child: Text(
-                                    title,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding:
-                                          EdgeInsets.only(left: 20, top: 5),
-                                      child: Text(
-                                        NumberFormat('#,###,000')
-                                            .format(caseCount),
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 22,
-                                        ),
-                                      ),
-                                    ),
-                                    _newCasesRow(newCaseCount)
-                                  ],
-                                )
-                              ],
-                            ),
-                            Expanded(
-                                child: Container(
-                              padding: EdgeInsets.only(right: 15),
-                              child: Text(
-                                caseRateOperator +
-                                    newCaseRate.toStringAsFixed(2) +
-                                    '%',
-                                textAlign: TextAlign.end,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            )),
-                          ],
+                    Container(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Icon(
+                        cardIcon,
+                        color: Colors.black,
+                        size: 100,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 15),
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
                         ),
                       ),
                     ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 20, top: 5),
+                              child: Text(
+                                NumberFormat('#,###,000').format(caseCount),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 22,
+                                ),
+                              ),
+                            ),
+                            _newCasesRow(newCaseCount)
+                          ],
+                        )
+                      ],
+                    ),
+                    Expanded(
+                        child: Container(
+                      padding: EdgeInsets.only(right: 15),
+                      child: Text(
+                        caseRateOperator + newCaseRate.toStringAsFixed(2) + '%',
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                        ),
+                      ),
+                    )),
                   ],
                 ),
               );
