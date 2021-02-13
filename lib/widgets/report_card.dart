@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:animations/animations.dart';
 import 'package:intl/intl.dart';
 
 class ReportCard extends StatefulWidget {
@@ -54,7 +55,7 @@ class _ReportCardState extends State<ReportCard>
   void initState() {
     super.initState();
     controller =
-        AnimationController(duration: Duration(seconds: 2), vsync: this);
+        AnimationController(duration: Duration(milliseconds: 300), vsync: this);
     animation = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller, curve: Curves.easeInOutQuart));
     controller.forward();
@@ -97,81 +98,169 @@ class ReportCardContent extends StatelessWidget {
 
   Widget build(BuildContext context) {
     var caseRateOperator = newCaseRate >= 0 ? "+" : "";
+
     return Container(
       height: 80,
       child: Card(
-          margin: EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 5),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: backgroundColor),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(left: 20),
-                          child: Icon(
-                            cardIcon,
-                            color: Colors.black,
-                            size: 25,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+        margin: EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 5),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15))),
+        clipBehavior: Clip.hardEdge,
+        child: OpenContainer(
+            transitionType: ContainerTransitionType.fade,
+            openShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15))),
+            closedShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15))),
+            openColor: backgroundColor,
+            closedColor: backgroundColor,
+            closedBuilder: (context, action) {
+              return Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    color: backgroundColor),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        child: Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(left: 20, top: 15),
-                              child: Text(
-                                title,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                ),
+                              padding: EdgeInsets.only(left: 20),
+                              child: Icon(
+                                cardIcon,
+                                color: Colors.black,
+                                size: 25,
                               ),
                             ),
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.only(left: 20, top: 5),
+                                  padding: EdgeInsets.only(left: 20, top: 15),
                                   child: Text(
-                                    NumberFormat('#,###,000').format(caseCount),
+                                    title,
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 22,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ),
-                                _newCasesRow(newCaseCount)
+                                Row(
+                                  children: [
+                                    Container(
+                                      padding:
+                                          EdgeInsets.only(left: 20, top: 5),
+                                      child: Text(
+                                        NumberFormat('#,###,000')
+                                            .format(caseCount),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 22,
+                                        ),
+                                      ),
+                                    ),
+                                    _newCasesRow(newCaseCount)
+                                  ],
+                                )
                               ],
-                            )
+                            ),
+                            Expanded(
+                                child: Container(
+                              padding: EdgeInsets.only(right: 15),
+                              child: Text(
+                                caseRateOperator +
+                                    newCaseRate.toStringAsFixed(2) +
+                                    '%',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            )),
                           ],
                         ),
-                        Expanded(
-                            child: Container(
-                          padding: EdgeInsets.only(right: 15),
-                          child: Text(
-                            caseRateOperator +
-                                newCaseRate.toStringAsFixed(2) +
-                                '%',
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14,
-                            ),
-                          ),
-                        )),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          )),
+              );
+            },
+            openBuilder: (context, action) {
+              return Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    color: backgroundColor),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 20),
+                              child: Icon(
+                                cardIcon,
+                                color: Colors.black,
+                                size: 25,
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 20, top: 15),
+                                  child: Text(
+                                    title,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      padding:
+                                          EdgeInsets.only(left: 20, top: 5),
+                                      child: Text(
+                                        NumberFormat('#,###,000')
+                                            .format(caseCount),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 22,
+                                        ),
+                                      ),
+                                    ),
+                                    _newCasesRow(newCaseCount)
+                                  ],
+                                )
+                              ],
+                            ),
+                            Expanded(
+                                child: Container(
+                              padding: EdgeInsets.only(right: 15),
+                              child: Text(
+                                caseRateOperator +
+                                    newCaseRate.toStringAsFixed(2) +
+                                    '%',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            )),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+      ),
     );
   }
 
