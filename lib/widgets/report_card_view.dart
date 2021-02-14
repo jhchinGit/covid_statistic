@@ -54,7 +54,7 @@ class _ReportCardView extends State<ReportCardView>
     controller =
         AnimationController(duration: Duration(seconds: 1), vsync: this);
     animation = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: controller, curve: Curves.easeInOutQuart));
+        CurvedAnimation(parent: controller, curve: Curves.easeInOutCirc));
     controller.forward();
   }
 

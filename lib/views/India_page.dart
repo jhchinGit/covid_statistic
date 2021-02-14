@@ -54,6 +54,7 @@ class IndiaPage extends StatelessWidget {
                               fileAndPathName: 'images/flag_in.png',
                               width: 40,
                               height: 40,
+                              semanticLabel: "India Flag",
                             )),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

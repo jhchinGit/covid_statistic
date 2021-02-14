@@ -54,6 +54,7 @@ class MalaysiaPage extends StatelessWidget {
                               fileAndPathName: 'images/flag_my.png',
                               width: 40,
                               height: 40,
+                              semanticLabel: "Malaysia Flag",
                             )),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

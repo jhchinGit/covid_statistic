@@ -10,6 +10,7 @@ class CountryMenu extends StatelessWidget {
       return Container(
         child: GridView.count(
           crossAxisCount: 3,
+          padding: EdgeInsets.only(left: 5, right: 5),
           children: [
             CountryMenuButton(
                 fileAndPathName: 'images/flag_my.png',
