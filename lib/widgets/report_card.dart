@@ -1,3 +1,4 @@
+import 'package:covid_statistic/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 import 'package:intl/intl.dart';
@@ -106,8 +107,9 @@ class ReportCardContent extends StatelessWidget {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
         clipBehavior: Clip.hardEdge,
+        elevation: 6.0,
         child: OpenContainer(
-            transitionType: ContainerTransitionType.fade,
+            transitionType: ContainerTransitionType.fadeThrough,
             openShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(15))),
             closedShape: RoundedRectangleBorder(
@@ -188,65 +190,14 @@ class ReportCardContent extends StatelessWidget {
               );
             },
             openBuilder: (context, action) {
-              return Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: backgroundColor),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Icon(
-                        cardIcon,
-                        color: Colors.black,
-                        size: 100,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 15),
-                      child: Text(
-                        title,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 20, top: 5),
-                              child: Text(
-                                NumberFormat('#,###,000').format(caseCount),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 22,
-                                ),
-                              ),
-                            ),
-                            _newCasesRow(newCaseCount)
-                          ],
-                        )
-                      ],
-                    ),
-                    Expanded(
-                        child: Container(
-                      padding: EdgeInsets.only(right: 15),
-                      child: Text(
-                        caseRateOperator + newCaseRate.toStringAsFixed(2) + '%',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                        ),
-                      ),
-                    )),
-                  ],
-                ),
-              );
+              return Center(
+                  child: ReportCardView(
+                      backgroundColor: backgroundColor,
+                      title: title,
+                      caseCount: caseCount,
+                      newCaseCount: newCaseCount,
+                      newCaseRate: newCaseRate,
+                      cardIcon: cardIcon));
             }),
       ),
     );
