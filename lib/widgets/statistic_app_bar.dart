@@ -13,6 +13,7 @@ class StatisticAppBar extends StatelessWidget {
       backgroundColor: Color.fromRGBO(246, 236, 240, 1.0),
       appBar: AppBar(
         bottom: bottom,
+        backgroundColor: Color.fromRGBO(22, 199, 154, 1),
         title: Text(
           title,
         ),

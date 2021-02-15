@@ -17,7 +17,6 @@ class CountryMenuButton extends StatelessWidget {
         padding: EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 5),
         child: Material(
           borderRadius: BorderRadius.circular(15),
-          elevation: 8.0,
           color: Colors.white,
           child: InkWell(
             borderRadius: BorderRadius.circular(15),

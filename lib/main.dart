@@ -1,6 +1,7 @@
 import 'package:covid_statistic/views/India_page.dart';
 import 'package:covid_statistic/views/country_list_menu.dart';
 import 'package:covid_statistic/views/country_menu.dart';
+import 'package:covid_statistic/views/input_control_page.dart';
 import 'package:covid_statistic/widgets/statistic_app_bar.dart';
 import 'package:covid_statistic/views/malaysia_page.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class App extends StatelessWidget {
         title: 'Covid Statistic App',
         theme: ThemeData(fontFamily: 'Comfortaa'),
         home: DefaultTabController(
-          length: 2,
+          length: 3,
           child: StatisticAppBar(
             title: "Covid-19 Status",
             body: TabBarView(
@@ -67,17 +68,20 @@ class App extends StatelessWidget {
                       navigatorKey: navigatorKey, repository: repository),
                   child: CountryListMenu(),
                 ),
+                InputControlPage()
               ],
             ),
             bottom: TabBar(
+              indicatorColor: Color.fromRGBO(80, 80, 80, 1),
               tabs: [
                 Tab(
-                  text: "Grid",
                   icon: Icon(Icons.grid_view),
                 ),
                 Tab(
-                  text: "List",
                   icon: Icon(Icons.list_rounded),
+                ),
+                Tab(
+                  icon: Icon(Icons.library_books_rounded),
                 )
               ],
             ),
