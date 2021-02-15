@@ -83,7 +83,7 @@ class MyReport extends Equatable {
         todayDeceasedCases: todayJson['deceased'] - yesterdayJson['deceased'],
         deceaseRate:
             _calculateRate(todayJson['deceased'], yesterdayJson['deceased']),
-        lastUpdated: lastUpdate);
+        lastUpdated: lastUpdate.add(Duration(hours: 4)));
   }
 
   static int _getYesterdayJsonIndex(int dayOfToday, dynamic reportList) {

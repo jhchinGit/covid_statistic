@@ -36,7 +36,10 @@ class CountryMenuButton extends StatelessWidget {
                   padding: EdgeInsets.only(top: 20),
                   child: Text(
                     name,
-                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                        color: Color.fromRGBO(19, 137, 253, 1)),
                   ),
                 )
               ],

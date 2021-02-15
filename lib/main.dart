@@ -1,4 +1,5 @@
 import 'package:covid_statistic/views/India_page.dart';
+import 'package:covid_statistic/views/country_list_menu.dart';
 import 'package:covid_statistic/views/country_menu.dart';
 import 'package:covid_statistic/widgets/statistic_app_bar.dart';
 import 'package:covid_statistic/views/malaysia_page.dart';
@@ -37,28 +38,51 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/myReport': (context) => MalaysiaPage(
-              repository: repository,
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: {
+          '/myReport': (context) => MalaysiaPage(
+                repository: repository,
+              ),
+          '/inReport': (context) => IndiaPage(
+                repository: repository,
+              ),
+        },
+        title: 'Covid Statistic App',
+        theme: ThemeData(fontFamily: 'Comfortaa'),
+        home: DefaultTabController(
+          length: 2,
+          child: StatisticAppBar(
+            title: "Covid-19 Status",
+            body: TabBarView(
+              children: [
+                BlocProvider(
+                  create: (context) => NavigatorBloc(
+                      navigatorKey: navigatorKey, repository: repository),
+                  child: CountryMenu(),
+                ),
+                BlocProvider(
+                  create: (context) => NavigatorBloc(
+                      navigatorKey: navigatorKey, repository: repository),
+                  child: CountryListMenu(),
+                ),
+              ],
             ),
-        '/inReport': (context) => IndiaPage(
-              repository: repository,
+            bottom: TabBar(
+              tabs: [
+                Tab(
+                  text: "Grid",
+                  icon: Icon(Icons.grid_view),
+                ),
+                Tab(
+                  text: "List",
+                  icon: Icon(Icons.list_rounded),
+                )
+              ],
             ),
-      },
-      title: 'Covid Statistic App',
-      theme: ThemeData(fontFamily: 'Comfortaa'),
-      home: StatisticAppBar(
-        title: "Covid-19 Status",
-        body: BlocProvider(
-          create: (context) =>
-              NavigatorBloc(navigatorKey: navigatorKey, repository: repository),
-          child: CountryMenu(),
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
 
