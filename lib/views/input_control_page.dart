@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class InputControlPage extends StatefulWidget {
   @override
@@ -10,8 +11,78 @@ class InputControlPage extends StatefulWidget {
 class _InputControlPageState extends State<InputControlPage> {
   final _username = TextEditingController();
   final _password = TextEditingController();
-  bool _usernameValidate = false;
-  bool _passwordValidate = false;
+  var _date = DateTime.now();
+  var _usernameValidate = true;
+  var _passwordValidate = true;
+
+  void onSubmit(BuildContext context) {
+    setState(() {
+      _username.text.isEmpty
+          ? _usernameValidate = false
+          : _usernameValidate = true;
+      _password.text.isEmpty
+          ? _passwordValidate = false
+          : _passwordValidate = true;
+    });
+
+    if (isAllValid()) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text(
+                  "Summary",
+                  style: TextStyle(color: Colors.white),
+                ),
+                content: Container(
+                    height: 200,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            padding: EdgeInsets.only(bottom: 8),
+                            child: Text("Username: " + _username.text,
+                                style: TextStyle(color: Colors.white))),
+                        Container(
+                            padding: EdgeInsets.only(bottom: 8),
+                            child: Text("Password: " + _password.text,
+                                style: TextStyle(color: Colors.white))),
+                        Container(
+                            padding: EdgeInsets.only(bottom: 8),
+                            child: Text(
+                                "Date: " +
+                                    new DateFormat('dd MMM yyyy').format(_date),
+                                style: TextStyle(color: Colors.white)))
+                      ],
+                    )),
+                actions: [
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "OK",
+                        style: TextStyle(color: Colors.white),
+                      ))
+                ],
+                elevation: 8,
+                backgroundColor: Color.fromRGBO(22, 199, 154, 1),
+              ),
+          barrierDismissible: false);
+    }
+  }
+
+  void onDatePick(BuildContext context) async {
+    _date = await showDatePicker(
+      context: context,
+      initialDate: _date ?? DateTime.now(),
+      firstDate: DateTime(DateTime.now().year),
+      lastDate: DateTime(2090),
+    );
+  }
+
+  bool isAllValid() {
+    return _usernameValidate && _passwordValidate && _date != null;
+  }
 
   @override
   void dispose() {
@@ -33,7 +104,7 @@ class _InputControlPageState extends State<InputControlPage> {
                   border: OutlineInputBorder(),
                   labelText: 'Username',
                   errorText:
-                      _usernameValidate ? "Username cannot be empty!" : null),
+                      !_usernameValidate ? "Username cannot be empty!" : null),
             ),
           ),
           Container(
@@ -45,21 +116,31 @@ class _InputControlPageState extends State<InputControlPage> {
                   border: OutlineInputBorder(),
                   labelText: 'Password',
                   errorText:
-                      _passwordValidate ? "Password cannot be empty!" : null),
+                      !_passwordValidate ? "Password cannot be empty!" : null),
             ),
           ),
           Container(
             child: ElevatedButton(
-              onPressed: () => {
-                setState(() {
-                  _username.text.isEmpty
-                      ? _usernameValidate = true
-                      : _usernameValidate = false;
-                  _password.text.isEmpty
-                      ? _passwordValidate = true
-                      : _passwordValidate = false;
-                })
-              },
+              onPressed: () => onDatePick(context),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.pressed)) {
+                      return Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.5);
+                    }
+                    return Colors.green; // Use the component's default.
+                  },
+                ),
+              ),
+              child: Icon(Icons.alarm),
+            ),
+          ),
+          Container(
+            child: ElevatedButton(
+              onPressed: () => onSubmit(context),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                   (Set<MaterialState> states) {
