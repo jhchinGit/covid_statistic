@@ -2,6 +2,8 @@ import 'package:covid_statistic/views/India_page.dart';
 import 'package:covid_statistic/views/country_list_menu.dart';
 import 'package:covid_statistic/views/country_menu.dart';
 import 'package:covid_statistic/views/input_control_page.dart';
+import 'package:covid_statistic/views/map_view.dart';
+import 'package:covid_statistic/views/ride_hailing_page.dart';
 import 'package:covid_statistic/widgets/statistic_app_bar.dart';
 import 'package:covid_statistic/views/malaysia_page.dart';
 import 'package:flutter/material.dart';
@@ -49,11 +51,12 @@ class App extends StatelessWidget {
           '/inReport': (context) => IndiaPage(
                 repository: repository,
               ),
+          '/googleMap': (context) => MapView(),
         },
         title: 'Covid Statistic App',
         theme: ThemeData(fontFamily: 'Comfortaa'),
         home: DefaultTabController(
-          length: 3,
+          length: 4,
           child: StatisticAppBar(
             title: "Covid-19 Status",
             body: TabBarView(
@@ -68,10 +71,16 @@ class App extends StatelessWidget {
                       navigatorKey: navigatorKey, repository: repository),
                   child: CountryListMenu(),
                 ),
-                InputControlPage()
+                InputControlPage(),
+                BlocProvider(
+                  create: (context) => NavigatorBloc(
+                      navigatorKey: navigatorKey, repository: repository),
+                  child: RideHailingPage(),
+                ),
               ],
             ),
             bottom: TabBar(
+              isScrollable: true,
               indicatorColor: Color.fromRGBO(80, 80, 80, 1),
               tabs: [
                 Tab(
@@ -82,6 +91,9 @@ class App extends StatelessWidget {
                 ),
                 Tab(
                   icon: Icon(Icons.library_books_rounded),
+                ),
+                Tab(
+                  icon: Icon(Icons.map_rounded),
                 )
               ],
             ),

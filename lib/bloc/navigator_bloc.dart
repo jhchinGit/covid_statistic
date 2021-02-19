@@ -22,6 +22,8 @@ class NavigatorBloc extends Bloc<NavigatorEvent, dynamic> {
       navigatorKey.currentState.pushNamed('/myReport');
     } else if (event is NavigateToIndiaReportEvent) {
       navigatorKey.currentState.pushNamed('/inReport');
+    } else if (event is NavigateToMapEvent) {
+      navigatorKey.currentState.pushNamed('/googleMap');
     }
   }
 }

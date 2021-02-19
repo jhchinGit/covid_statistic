@@ -24,3 +24,10 @@ class NavigatorActionPop extends NavigatorEvent {
   @override
   List<Object> get props => [];
 }
+
+class NavigateToMapEvent extends NavigatorEvent {
+  NavigateToMapEvent();
+
+  @override
+  List<Object> get props => [];
+}

@@ -93,72 +93,79 @@ class _InputControlPageState extends State<InputControlPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-            child: TextField(
-              controller: _username,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Username',
-                  errorText:
-                      !_usernameValidate ? "Username cannot be empty!" : null),
-            ),
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
+          child: TextField(
+            controller: _username,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Username',
+                errorText:
+                    !_usernameValidate ? "Username cannot be empty!" : null),
           ),
-          Container(
-            padding: EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 5),
-            child: TextField(
-              controller: _password,
-              obscureText: true,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password',
-                  errorText:
-                      !_passwordValidate ? "Password cannot be empty!" : null),
-            ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 5),
+          child: TextField(
+            controller: _password,
+            obscureText: true,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+                errorText:
+                    !_passwordValidate ? "Password cannot be empty!" : null),
           ),
-          Container(
-            child: ElevatedButton(
-              onPressed: () => onDatePick(context),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed)) {
-                      return Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withOpacity(0.5);
-                    }
-                    return Colors.green; // Use the component's default.
-                  },
-                ),
+        ),
+        Container(
+          child: ElevatedButton(
+            onPressed: () => onDatePick(context),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.pressed)) {
+                    return Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withOpacity(0.5);
+                  }
+                  return Colors.green; // Use the component's default.
+                },
               ),
-              child: Icon(Icons.alarm),
+            ),
+            child: Icon(Icons.alarm),
+          ),
+        ),
+        Expanded(
+            child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            width: 200,
+            child: ButtonTheme(
+              minWidth: MediaQuery.of(context).size.width,
+              height: 200,
+              child: ElevatedButton(
+                onPressed: () => onSubmit(context),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withOpacity(0.5);
+                      }
+                      return Colors.black; // Use the component's default.
+                    },
+                  ),
+                ),
+                child: Text("Submit"),
+              ),
             ),
           ),
-          Container(
-            child: ElevatedButton(
-              onPressed: () => onSubmit(context),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed)) {
-                      return Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withOpacity(0.5);
-                    }
-                    return Colors.black; // Use the component's default.
-                  },
-                ),
-              ),
-              child: Text("Submit"),
-            ),
-          )
-        ],
-      ),
+        ))
+      ],
     );
   }
 }

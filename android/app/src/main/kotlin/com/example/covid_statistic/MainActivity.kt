@@ -1,4 +1,4 @@
-package com.example.covid_statistic
+package com.jinswa.covid_statistic
 
 import io.flutter.embedding.android.FlutterActivity
 
