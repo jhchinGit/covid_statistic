@@ -1,56 +1,56 @@
 import 'package:equatable/equatable.dart';
 
 class InReport extends Equatable {
-  final int totalCases;
-  final int newCases;
+  final int totalCase;
+  final int newCase;
   final double newCaseRate;
   final int recovered;
   final int todayRecovered;
   final double recoveredRate;
-  final int activeCases;
-  final int todayActiveCases;
+  final int activeCase;
+  final int todayActiveCase;
   final double activeRate;
   final int death;
-  final int todayDeathCases;
+  final int todayDeathCase;
   final double deathRate;
-  final DateTime lastUpdated;
+  final DateTime reportedDate;
 
   InReport(
-      {this.totalCases,
-      this.newCases,
+      {this.totalCase,
+      this.newCase,
       this.newCaseRate,
       this.recovered,
       this.todayRecovered,
       this.recoveredRate,
-      this.activeCases,
-      this.todayActiveCases,
+      this.activeCase,
+      this.todayActiveCase,
       this.activeRate,
       this.death,
-      this.todayDeathCases,
+      this.todayDeathCase,
       this.deathRate,
-      this.lastUpdated});
+      this.reportedDate});
 
   @override
   List<Object> get props => [
-        totalCases,
-        newCases,
+        totalCase,
+        newCase,
         newCaseRate,
         recovered,
         todayRecovered,
         recoveredRate,
-        activeCases,
-        todayActiveCases,
+        activeCase,
+        todayActiveCase,
         activeRate,
         death,
-        todayDeathCases,
+        todayDeathCase,
         deathRate,
-        lastUpdated
+        reportedDate
       ];
 
   static InReport fromJson(dynamic json) {
     return InReport(
-        totalCases: json['totalCases'],
-        newCases:
+        totalCase: json['totalCases'],
+        newCase:
             json['activeCasesNew'] + json['recoveredNew'] + json['deathsNew'],
         newCaseRate: _calculateRate(
             json['totalCases'],
@@ -62,15 +62,15 @@ class InReport extends Equatable {
         todayRecovered: json['recoveredNew'],
         recoveredRate: _calculateRate(
             json['recovered'], json['recovered'] - json['recoveredNew']),
-        activeCases: json['activeCases'],
-        todayActiveCases: json['activeCasesNew'],
+        activeCase: json['activeCases'],
+        todayActiveCase: json['activeCasesNew'],
         activeRate: _calculateRate(
             json['activeCases'], json['activeCases'] - json['activeCasesNew']),
         death: json['deaths'],
-        todayDeathCases: json['deathsNew'],
+        todayDeathCase: json['deathsNew'],
         deathRate:
             _calculateRate(json['deaths'], json['deaths'] - json['deathsNew']),
-        lastUpdated: DateTime.parse(json['lastUpdatedAtApify'].toString()));
+        reportedDate: DateTime.parse(json['lastUpdatedAtApify'].toString()));
   }
 
   static double _calculateRate(int todayCount, int yesterdayCount) {
@@ -82,5 +82,5 @@ class InReport extends Equatable {
   }
 
   @override
-  String toString() => 'Quote {id: $activeCases}';
+  String toString() => 'Quote {id: $activeCase}';
 }

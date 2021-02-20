@@ -75,7 +75,7 @@ class MalaysiaPage extends StatelessWidget {
                                     left: 10, top: 5, bottom: 20),
                                 child: Text(
                                   new DateFormat('h:mm a - dd MMM yyyy')
-                                      .format(state.myReport.lastUpdated),
+                                      .format(state.myReport.reportedDate),
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: Color.fromRGBO(133, 126, 129, 1)),
@@ -87,25 +87,25 @@ class MalaysiaPage extends StatelessWidget {
                     ReportCard(
                       backgroundColor: Color.fromRGBO(153, 225, 229, 1),
                       title: "Total Cases",
-                      caseCount: state.myReport.testedPositive,
-                      newCaseCount: state.myReport.todayConfirmCases,
-                      newCaseRate: state.myReport.positiveRate,
+                      caseCount: state.myReport.totalCase,
+                      newCaseCount: state.myReport.newCase,
+                      newCaseRate: state.myReport.newCaseRate,
                       cardIcon: Icons.alarm_on,
                     ),
                     ReportCard(
                       backgroundColor: Color.fromRGBO(243, 232, 203, 1),
                       title: "Active Cases",
                       caseCount: state.myReport.activeCases,
-                      newCaseCount: state.myReport.todayActiveCases,
+                      newCaseCount: state.myReport.todayActiveCase,
                       newCaseRate: state.myReport.activeRate,
                       cardIcon: Icons.online_prediction,
                     ),
                     ReportCard(
                       backgroundColor: Color.fromRGBO(251, 175, 175, 1),
                       title: "Deceased",
-                      caseCount: state.myReport.deceased,
-                      newCaseCount: state.myReport.todayDeceasedCases,
-                      newCaseRate: state.myReport.deceaseRate,
+                      caseCount: state.myReport.death,
+                      newCaseCount: state.myReport.todayDeathCase,
+                      newCaseRate: state.myReport.deathRate,
                       cardIcon: Icons.airline_seat_flat,
                     ),
                     ReportCard(

@@ -2,56 +2,50 @@ import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 
 class MyReport extends Equatable {
-  final int testedPositive;
-  final int todayConfirmCases;
-  final double positiveRate;
+  final int totalCase;
+  final int newCase;
+  final double newCaseRate;
   final int recovered;
   final int todayRecovered;
   final double recoveredRate;
   final int activeCases;
-  final int todayActiveCases;
+  final int todayActiveCase;
   final double activeRate;
-  final int inICU;
-  final int respiratoryAid;
-  final int deceased;
-  final int todayDeceasedCases;
-  final double deceaseRate;
-  final DateTime lastUpdated;
+  final int death;
+  final int todayDeathCase;
+  final double deathRate;
+  final DateTime reportedDate;
 
   MyReport(
-      {this.testedPositive,
-      this.todayConfirmCases,
-      this.positiveRate,
+      {this.totalCase,
+      this.newCase,
+      this.newCaseRate,
       this.recovered,
       this.todayRecovered,
       this.recoveredRate,
       this.activeCases,
-      this.todayActiveCases,
+      this.todayActiveCase,
       this.activeRate,
-      this.inICU,
-      this.respiratoryAid,
-      this.deceased,
-      this.todayDeceasedCases,
-      this.deceaseRate,
-      this.lastUpdated});
+      this.death,
+      this.todayDeathCase,
+      this.deathRate,
+      this.reportedDate});
 
   @override
   List<Object> get props => [
-        testedPositive,
-        todayConfirmCases,
-        positiveRate,
+        totalCase,
+        newCase,
+        newCaseRate,
         recovered,
         todayRecovered,
         recoveredRate,
         activeCases,
-        todayActiveCases,
+        todayActiveCase,
         activeRate,
-        inICU,
-        respiratoryAid,
-        deceased,
-        todayDeceasedCases,
-        deceaseRate,
-        lastUpdated
+        death,
+        todayDeathCase,
+        deathRate,
+        reportedDate
       ];
 
   static MyReport fromJson(dynamic json) {
@@ -63,27 +57,24 @@ class MyReport extends Equatable {
         int.parse(DateFormat('d').format(lastUpdate)), json)];
 
     return MyReport(
-        testedPositive: todayJson['testedPositive'],
-        todayConfirmCases:
-            todayJson['testedPositive'] - yesterdayJson['testedPositive'],
-        positiveRate: _calculateRate(
+        totalCase: todayJson['testedPositive'],
+        newCase: todayJson['testedPositive'] - yesterdayJson['testedPositive'],
+        newCaseRate: _calculateRate(
             todayJson['testedPositive'], yesterdayJson['testedPositive']),
         recovered: todayJson['recovered'],
         todayRecovered: todayJson['recovered'] - yesterdayJson['recovered'],
         recoveredRate:
             _calculateRate(todayJson['recovered'], yesterdayJson['recovered']),
         activeCases: todayJson['activeCases'],
-        todayActiveCases:
+        todayActiveCase:
             todayJson['activeCases'] - yesterdayJson['activeCases'],
         activeRate: _calculateRate(
             todayJson['activeCases'], yesterdayJson['activeCases']),
-        inICU: todayJson['inICU'],
-        respiratoryAid: todayJson['respiratoryAid'],
-        deceased: todayJson['deceased'],
-        todayDeceasedCases: todayJson['deceased'] - yesterdayJson['deceased'],
-        deceaseRate:
+        death: todayJson['deceased'],
+        todayDeathCase: todayJson['deceased'] - yesterdayJson['deceased'],
+        deathRate:
             _calculateRate(todayJson['deceased'], yesterdayJson['deceased']),
-        lastUpdated: lastUpdate.add(Duration(hours: 4)));
+        reportedDate: lastUpdate.add(Duration(hours: 4)));
   }
 
   static int _getYesterdayJsonIndex(int dayOfToday, dynamic reportList) {

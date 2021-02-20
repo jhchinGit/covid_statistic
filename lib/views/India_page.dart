@@ -75,7 +75,7 @@ class IndiaPage extends StatelessWidget {
                                     left: 10, top: 5, bottom: 20),
                                 child: Text(
                                   new DateFormat('h:mm a - dd MMM yyyy')
-                                      .format(state.inReport.lastUpdated),
+                                      .format(state.inReport.reportedDate),
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: Color.fromRGBO(133, 126, 129, 1)),
@@ -87,16 +87,16 @@ class IndiaPage extends StatelessWidget {
                     ReportCard(
                       backgroundColor: Color.fromRGBO(153, 225, 229, 1),
                       title: "Total Cases",
-                      caseCount: state.inReport.totalCases,
-                      newCaseCount: state.inReport.newCases,
+                      caseCount: state.inReport.totalCase,
+                      newCaseCount: state.inReport.newCase,
                       newCaseRate: state.inReport.newCaseRate,
                       cardIcon: Icons.alarm_on,
                     ),
                     ReportCard(
                       backgroundColor: Color.fromRGBO(243, 232, 203, 1),
                       title: "Active Cases",
-                      caseCount: state.inReport.activeCases,
-                      newCaseCount: state.inReport.todayActiveCases,
+                      caseCount: state.inReport.activeCase,
+                      newCaseCount: state.inReport.todayActiveCase,
                       newCaseRate: state.inReport.activeRate,
                       cardIcon: Icons.online_prediction,
                     ),
@@ -104,7 +104,7 @@ class IndiaPage extends StatelessWidget {
                       backgroundColor: Color.fromRGBO(251, 175, 175, 1),
                       title: "Deceased",
                       caseCount: state.inReport.death,
-                      newCaseCount: state.inReport.todayDeathCases,
+                      newCaseCount: state.inReport.todayDeathCase,
                       newCaseRate: state.inReport.deathRate,
                       cardIcon: Icons.airline_seat_flat,
                     ),
