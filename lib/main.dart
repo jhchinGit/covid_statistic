@@ -1,7 +1,9 @@
+import 'package:covid_statistic/repositories/token_api_client.dart';
 import 'package:covid_statistic/views/India_page.dart';
 import 'package:covid_statistic/views/country_list_menu.dart';
 import 'package:covid_statistic/views/country_menu.dart';
 import 'package:covid_statistic/views/input_control_page.dart';
+import 'package:covid_statistic/views/login_page.dart';
 import 'package:covid_statistic/views/map_view.dart';
 import 'package:covid_statistic/views/ride_hailing_page.dart';
 import 'package:covid_statistic/widgets/statistic_app_bar.dart';
@@ -19,23 +21,32 @@ import 'package:covid_statistic/repositories/repositories.dart';
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
-  final ReportRepository repository = ReportRepository(
+  final ReportRepository reportRepository = ReportRepository(
     reportApiClient: ReportApiClient(
       httpClient: http.Client(),
     ),
   );
 
+  final TokenRepository tokenRepository = TokenRepository(
+    tokenApiClient: TokenApiClient(
+      httpClient: http.Client(),
+    ),
+  );
+
   runApp(App(
-    repository: repository,
-  ));
+      reportRepository: reportRepository, tokenRepository: tokenRepository));
 }
 
 class App extends StatelessWidget {
-  final ReportRepository repository;
+  final ReportRepository reportRepository;
+  final TokenRepository tokenRepository;
   final navigatorKey = GlobalKey<NavigatorState>();
 
-  App({Key key, @required this.repository})
-      : assert(repository != null),
+  App(
+      {Key key,
+      @required this.reportRepository,
+      @required this.tokenRepository})
+      : assert(reportRepository != null),
         super(key: key);
 
   @override
@@ -46,10 +57,10 @@ class App extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/myReport': (context) => MalaysiaPage(
-                repository: repository,
+                repository: reportRepository,
               ),
           '/inReport': (context) => IndiaPage(
-                repository: repository,
+                repository: reportRepository,
               ),
           '/googleMap': (context) => MapView(),
         },
@@ -63,18 +74,31 @@ class App extends StatelessWidget {
               children: [
                 BlocProvider(
                   create: (context) => NavigatorBloc(
-                      navigatorKey: navigatorKey, repository: repository),
+                      navigatorKey: navigatorKey, repository: reportRepository),
                   child: CountryMenu(),
                 ),
                 BlocProvider(
                   create: (context) => NavigatorBloc(
-                      navigatorKey: navigatorKey, repository: repository),
+                      navigatorKey: navigatorKey, repository: reportRepository),
                   child: CountryListMenu(),
                 ),
-                InputControlPage(),
+                MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => NavigatorBloc(
+                          navigatorKey: navigatorKey,
+                          repository: reportRepository),
+                    ),
+                    BlocProvider(
+                      create: (context) =>
+                          LoginBloc(repository: tokenRepository),
+                    ),
+                  ],
+                  child: LoginPage(),
+                ),
                 BlocProvider(
                   create: (context) => NavigatorBloc(
-                      navigatorKey: navigatorKey, repository: repository),
+                      navigatorKey: navigatorKey, repository: reportRepository),
                   child: RideHailingPage(),
                 ),
               ],

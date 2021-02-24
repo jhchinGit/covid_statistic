@@ -15,7 +15,7 @@ class _InputControlPageState extends State<InputControlPage> {
   var _usernameValidate = true;
   var _passwordValidate = true;
 
-  void onSubmit(BuildContext context) {
+  void onLogin(BuildContext context) {
     setState(() {
       _username.text.isEmpty
           ? _usernameValidate = false
@@ -146,7 +146,7 @@ class _InputControlPageState extends State<InputControlPage> {
               minWidth: MediaQuery.of(context).size.width,
               height: 200,
               child: ElevatedButton(
-                onPressed: () => onSubmit(context),
+                onPressed: () => onLogin(context),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
@@ -160,7 +160,7 @@ class _InputControlPageState extends State<InputControlPage> {
                     },
                   ),
                 ),
-                child: Text("Submit"),
+                child: Text("Login"),
               ),
             ),
           ),
