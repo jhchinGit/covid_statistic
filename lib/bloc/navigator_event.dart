@@ -31,3 +31,10 @@ class NavigateToMapEvent extends NavigatorEvent {
   @override
   List<Object> get props => [];
 }
+
+class NavigateToInternalReportEvent extends NavigatorEvent {
+  NavigateToInternalReportEvent();
+
+  @override
+  List<Object> get props => [];
+}

@@ -6,21 +6,12 @@ import 'package:covid_statistic/bloc/bloc.dart';
 import 'package:covid_statistic/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 
-import '../widgets/statistic_app_bar.dart';
-
 class IndiaPage extends StatelessWidget {
   final ReportRepository repository;
 
   IndiaPage({Key key, @required this.repository})
       : assert(repository != null),
         super(key: key);
-
-  static Route route(ReportRepository repository) {
-    return MaterialPageRoute<void>(
-        builder: (_) => IndiaPage(
-              repository: repository,
-            ));
-  }
 
   @override
   Widget build(BuildContext context) {

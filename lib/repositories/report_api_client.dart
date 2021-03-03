@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'package:covid_statistic/models/models.dart';
@@ -36,5 +37,23 @@ class ReportApiClient {
     final json = jsonDecode(response.body);
 
     return InReport.fromJson(json);
+  }
+
+  Future<InternalReport> fetchInternalCovidReport(
+      String tokenId, int countryIndex) async {
+    final url =
+        'http://192.168.0.142/ApiService/api/covid/' + countryIndex.toString();
+    final response = await this.httpClient.get(
+      url,
+      headers: {HttpHeaders.authorizationHeader: tokenId},
+    );
+
+    if (response.statusCode != 200) {
+      throw new Exception('error getting India report');
+    }
+
+    final json = jsonDecode(response.body);
+
+    return InternalReport.fromJson(json);
   }
 }

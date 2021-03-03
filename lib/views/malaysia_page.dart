@@ -15,13 +15,6 @@ class MalaysiaPage extends StatelessWidget {
       : assert(repository != null),
         super(key: key);
 
-  static Route route(ReportRepository repository) {
-    return MaterialPageRoute<void>(
-        builder: (_) => MalaysiaPage(
-              repository: repository,
-            ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return StatisticAppBar(

@@ -15,6 +15,8 @@ class CountryMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 5),
+        width: 130,
+        height: 130,
         child: Material(
           borderRadius: BorderRadius.circular(15),
           color: Colors.white,

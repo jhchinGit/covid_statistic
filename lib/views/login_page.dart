@@ -1,7 +1,6 @@
 import 'package:covid_statistic/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   var _usernameValidate = true;
   var _passwordValidate = true;
 
-  void onLogin(BuildContext context, LoginState loginState) {
+  void onLogin(BuildContext context) {
     setState(() {
       _username.text.isEmpty
           ? _usernameValidate = false
@@ -29,40 +28,42 @@ class _LoginPageState extends State<LoginPage> {
     if (isAllValid()) {
       BlocProvider.of<LoginBloc>(context)
           .add(FetchLogin(username: _username.text, password: _password.text));
-
-      if (loginState is LoginLoaded) {
-        showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-                  title: Text("Well Done!"),
-                  content: Text("Successfully login!"),
-                  actions: [
-                    FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text("OK"))
-                  ],
-                ),
-            barrierDismissible: false);
-      } else if (loginState is LoginError) {
-        showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-                  title: Text("Fail to login"),
-                  content: Text(loginState.errorMessage),
-                  actions: [
-                    FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text("OK"))
-                  ],
-                ),
-            barrierDismissible: false);
-      }
     }
   }
+
+  // void showLoginState(BuildContext context, LoginState loginState) {
+  //   if (loginState is LoginLoaded) {
+  //     showDialog(
+  //         context: context,
+  //         builder: (_) => AlertDialog(
+  //               title: Text("Well Done!"),
+  //               content: Text("Successfully login!"),
+  //               actions: [
+  //                 FlatButton(
+  //                     onPressed: () {
+  //                       Navigator.of(context).pop();
+  //                     },
+  //                     child: Text("OK"))
+  //               ],
+  //             ),
+  //         barrierDismissible: false);
+  //   } else if (loginState is LoginError) {
+  //     showDialog(
+  //         context: context,
+  //         builder: (_) => AlertDialog(
+  //               title: Text("Fail to login"),
+  //               content: Text(loginState.errorMessage),
+  //               actions: [
+  //                 FlatButton(
+  //                     onPressed: () {
+  //                       Navigator.of(context).pop();
+  //                     },
+  //                     child: Text("OK"))
+  //               ],
+  //             ),
+  //         barrierDismissible: false);
+  //   }
+  // }
 
   bool isAllValid() {
     return _usernameValidate && _passwordValidate;
@@ -73,6 +74,16 @@ class _LoginPageState extends State<LoginPage> {
     return BlocBuilder<NavigatorBloc, dynamic>(
         builder: (context, navigationState) {
       return BlocBuilder<LoginBloc, LoginState>(builder: (context, loginState) {
+        if (loginState is LoginLoading) {
+          return Container(
+            padding: EdgeInsets.only(top: 50),
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (loginState is LoginLoaded) {
+          BlocProvider.of<NavigatorBloc>(context)
+              .add(NavigateToInternalReportEvent());
+        }
         return Column(
           children: [
             Container(
@@ -104,26 +115,28 @@ class _LoginPageState extends State<LoginPage> {
                 child: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                width: 200,
+                padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                width: MediaQuery.of(context).size.width,
+                height: 70,
                 child: ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width,
                   height: 200,
                   child: ElevatedButton(
-                    onPressed: () => onLogin(context, loginState),
+                    onPressed: () => onLogin(context),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
                           if (states.contains(MaterialState.pressed)) {
-                            return Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.5);
+                            return Colors.grey;
                           }
                           return Colors.black; // Use the component's default.
                         },
                       ),
                     ),
-                    child: Text("Login"),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                 ),
               ),

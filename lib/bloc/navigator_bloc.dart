@@ -1,4 +1,3 @@
-import 'package:covid_statistic/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,10 +5,8 @@ import 'bloc.dart';
 
 class NavigatorBloc extends Bloc<NavigatorEvent, dynamic> {
   final GlobalKey<NavigatorState> navigatorKey;
-  final ReportRepository repository;
 
-  NavigatorBloc({this.navigatorKey, @required this.repository})
-      : assert(repository != null);
+  NavigatorBloc({@required this.navigatorKey}) : assert(navigatorKey != null);
 
   @override
   dynamic get initialState => 0;
@@ -24,6 +21,8 @@ class NavigatorBloc extends Bloc<NavigatorEvent, dynamic> {
       navigatorKey.currentState.pushNamed('/inReport');
     } else if (event is NavigateToMapEvent) {
       navigatorKey.currentState.pushNamed('/googleMap');
+    } else if (event is NavigateToInternalReportEvent) {
+      navigatorKey.currentState.pushNamed('/internalReport');
     }
   }
 }

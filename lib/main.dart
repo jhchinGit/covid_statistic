@@ -2,7 +2,7 @@ import 'package:covid_statistic/repositories/token_api_client.dart';
 import 'package:covid_statistic/views/India_page.dart';
 import 'package:covid_statistic/views/country_list_menu.dart';
 import 'package:covid_statistic/views/country_menu.dart';
-import 'package:covid_statistic/views/input_control_page.dart';
+import 'package:covid_statistic/views/internal_country_menu.dart';
 import 'package:covid_statistic/views/login_page.dart';
 import 'package:covid_statistic/views/map_view.dart';
 import 'package:covid_statistic/views/ride_hailing_page.dart';
@@ -63,6 +63,8 @@ class App extends StatelessWidget {
                 repository: reportRepository,
               ),
           '/googleMap': (context) => MapView(),
+          '/internalReport': (context) =>
+              InternalCountryMenu(navigatorKey: navigatorKey)
         },
         title: 'Covid Statistic App',
         theme: ThemeData(fontFamily: 'Comfortaa'),
@@ -73,32 +75,31 @@ class App extends StatelessWidget {
             body: TabBarView(
               children: [
                 BlocProvider(
-                  create: (context) => NavigatorBloc(
-                      navigatorKey: navigatorKey, repository: reportRepository),
+                  create: (context) =>
+                      NavigatorBloc(navigatorKey: navigatorKey),
                   child: CountryMenu(),
                 ),
                 BlocProvider(
-                  create: (context) => NavigatorBloc(
-                      navigatorKey: navigatorKey, repository: reportRepository),
+                  create: (context) =>
+                      NavigatorBloc(navigatorKey: navigatorKey),
                   child: CountryListMenu(),
                 ),
                 MultiBlocProvider(
                   providers: [
                     BlocProvider(
-                      create: (context) => NavigatorBloc(
-                          navigatorKey: navigatorKey,
-                          repository: reportRepository),
+                      create: (context) =>
+                          NavigatorBloc(navigatorKey: navigatorKey),
                     ),
                     BlocProvider(
                       create: (context) =>
-                          LoginBloc(repository: tokenRepository),
+                          LoginBloc(tokenRepository: tokenRepository),
                     ),
                   ],
                   child: LoginPage(),
                 ),
                 BlocProvider(
-                  create: (context) => NavigatorBloc(
-                      navigatorKey: navigatorKey, repository: reportRepository),
+                  create: (context) =>
+                      NavigatorBloc(navigatorKey: navigatorKey),
                   child: RideHailingPage(),
                 ),
               ],

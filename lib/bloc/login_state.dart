@@ -1,8 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:covid_statistic/models/models.dart';
-
 abstract class LoginState extends Equatable {
   LoginState();
 
