@@ -45,15 +45,15 @@ class ReportApiClient {
         'http://192.168.0.142/ApiService/api/covid/' + countryIndex.toString();
     final response = await this.httpClient.get(
       url,
-      headers: {HttpHeaders.authorizationHeader: tokenId},
+      headers: {HttpHeaders.authorizationHeader: "Bearer " + tokenId},
     );
 
     if (response.statusCode != 200) {
-      throw new Exception('error getting India report');
+      throw new Exception('error getting internal report');
     }
 
     final json = jsonDecode(response.body);
 
-    return InternalReport.fromJson(json);
+    return InternalReport.fromJson(json["data"]);
   }
 }

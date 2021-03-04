@@ -25,14 +25,14 @@ class InternalCountryMenu extends StatelessWidget {
                     name: "MALAYSIA",
                     callback: () {
                       BlocProvider.of<NavigatorBloc>(context)
-                          .add(NavigateToMalaysiaReportEvent());
+                          .add(NavigateToInternalMalaysiaReportEvent());
                     }),
                 CountryMenuButton(
                     fileAndPathName: 'images/flag_in.png',
                     name: "INDIA",
                     callback: () {
                       BlocProvider.of<NavigatorBloc>(context)
-                          .add(NavigateToIndiaReportEvent());
+                          .add(NavigateToInternalIndiaReportEvent());
                     })
               ],
             );

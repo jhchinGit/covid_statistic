@@ -1,8 +1,10 @@
+import 'package:covid_statistic/models/models.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
 import 'package:covid_statistic/repositories/repositories.dart';
 import 'package:covid_statistic/bloc/bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final TokenRepository tokenRepository;
@@ -24,7 +26,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         final accessToken =
             await tokenRepository.fetchToken(event.username, event.password);
-
+        var secureStorage = FlutterSecureStorage();
+        await secureStorage.write(
+            key: StorageKey.tokenKey.toString(),
+            value: accessToken.accessToken);
         yield LoginLoaded(isLogin: true);
       } catch (_) {
         yield LoginError(errorMessage: _.message);

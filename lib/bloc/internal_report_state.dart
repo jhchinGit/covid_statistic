@@ -24,4 +24,12 @@ class InternalReportLoaded extends InternalReportState {
   List<Object> get props => [];
 }
 
-class InternalReportError extends InternalReportState {}
+class InternalReportError extends InternalReportState {
+  final String errorMessage;
+
+  InternalReportError({@required this.errorMessage})
+      : assert(errorMessage != null);
+
+  @override
+  List<Object> get props => [];
+}

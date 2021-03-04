@@ -3,6 +3,7 @@ import 'package:covid_statistic/views/India_page.dart';
 import 'package:covid_statistic/views/country_list_menu.dart';
 import 'package:covid_statistic/views/country_menu.dart';
 import 'package:covid_statistic/views/internal_country_menu.dart';
+import 'package:covid_statistic/views/internal_report_page.dart';
 import 'package:covid_statistic/views/login_page.dart';
 import 'package:covid_statistic/views/map_view.dart';
 import 'package:covid_statistic/views/ride_hailing_page.dart';
@@ -64,7 +65,13 @@ class App extends StatelessWidget {
               ),
           '/googleMap': (context) => MapView(),
           '/internalReport': (context) =>
-              InternalCountryMenu(navigatorKey: navigatorKey)
+              InternalCountryMenu(navigatorKey: navigatorKey),
+          '/internalMalaysiaReport': (context) => InternalReportPage(
+                repository: reportRepository,
+              ),
+          '/internalIndiaReport': (context) => InternalReportPage(
+                repository: reportRepository,
+              ),
         },
         title: 'Covid Statistic App',
         theme: ThemeData(fontFamily: 'Comfortaa'),

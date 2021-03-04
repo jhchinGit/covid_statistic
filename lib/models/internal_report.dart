@@ -51,19 +51,19 @@ class InternalReport extends Equatable {
 
   static InternalReport fromJson(dynamic json) {
     return InternalReport(
-        totalCase: json['totalCases'],
+        totalCase: json['totalCase'],
         newCase: json['newCase'],
         newCaseRate: json['newCaseRate'],
         recovered: json['recovered'],
         recoveredNew: json['recoveredNew'],
         recoveredRate: json['recoveredRate'],
-        activeCase: json['activeCases'],
+        activeCase: json['activeCase'],
         todayActiveCase: json['todayActiveCase'],
         activeRate: json['activeRate'],
         death: json['death'],
         todayDeathCase: json['todayDeathCase'],
         deathRate: json['deathRate'],
-        reportedDate: DateTime.parse(json['lastUpdatedAtApify'].toString()));
+        reportedDate: DateTime.parse(json['reportedDateStr']));
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:covid_statistic/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +24,12 @@ class NavigatorBloc extends Bloc<NavigatorEvent, dynamic> {
       navigatorKey.currentState.pushNamed('/googleMap');
     } else if (event is NavigateToInternalReportEvent) {
       navigatorKey.currentState.pushNamed('/internalReport');
+    } else if (event is NavigateToInternalMalaysiaReportEvent) {
+      navigatorKey.currentState
+          .pushNamed('/internalMalaysiaReport', arguments: Country.Malaysia);
+    } else if (event is NavigateToInternalIndiaReportEvent) {
+      navigatorKey.currentState
+          .pushNamed('/internalIndiaReport', arguments: Country.India);
     }
   }
 }

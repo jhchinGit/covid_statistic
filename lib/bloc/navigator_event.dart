@@ -38,3 +38,17 @@ class NavigateToInternalReportEvent extends NavigatorEvent {
   @override
   List<Object> get props => [];
 }
+
+class NavigateToInternalMalaysiaReportEvent extends NavigatorEvent {
+  NavigateToInternalMalaysiaReportEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class NavigateToInternalIndiaReportEvent extends NavigatorEvent {
+  NavigateToInternalIndiaReportEvent();
+
+  @override
+  List<Object> get props => [];
+}
