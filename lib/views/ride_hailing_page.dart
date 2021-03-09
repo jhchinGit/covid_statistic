@@ -58,7 +58,7 @@ class RideHailingPage extends StatelessWidget {
                 child: Text(message),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },

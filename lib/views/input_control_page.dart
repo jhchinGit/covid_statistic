@@ -55,7 +55,7 @@ class _InputControlPageState extends State<InputControlPage> {
                       ],
                     )),
                 actions: [
-                  FlatButton(
+                  TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
