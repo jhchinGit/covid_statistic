@@ -55,7 +55,9 @@ class InternalReportPage extends StatelessWidget {
                             padding:
                                 EdgeInsets.only(left: 20, top: 20, bottom: 20),
                             child: RoundImage(
-                              fileAndPathName: 'images/flag_in.png',
+                              fileAndPathName: countryArgs == Country.Malaysia
+                                  ? 'images/flag_my.png'
+                                  : 'images/flag_in.png',
                               width: 40,
                               height: 40,
                               semanticLabel: "Internal Flag",

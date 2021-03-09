@@ -42,8 +42,8 @@ class InternalReportBloc
       } catch (e) {
         yield InternalReportError(errorMessage: e["message"]);
       }
+    } else {
+      yield InternalReportError(errorMessage: "Incorrect request!");
     }
-
-    yield InternalReportError(errorMessage: "Incorrect request!");
   }
 }

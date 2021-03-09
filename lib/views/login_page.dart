@@ -87,28 +87,57 @@ class _LoginPageState extends State<LoginPage> {
         return Column(
           children: [
             Container(
-              padding: EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-              child: TextField(
-                controller: _username,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Username',
-                    errorText: !_usernameValidate
-                        ? "Username cannot be empty!"
-                        : null),
+              padding: EdgeInsets.only(top: 15, left: 10),
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      padding: EdgeInsets.only(bottom: 5),
+                      child: Text(
+                        "Welcome,",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 24),
+                      )),
+                  Text(
+                    "Sign in to continue!",
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                ],
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 5),
-              child: TextField(
-                controller: _password,
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    errorText: !_passwordValidate
-                        ? "Password cannot be empty!"
-                        : null),
+              height: 230,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        top: 10, left: 10, right: 10, bottom: 10),
+                    child: TextField(
+                      controller: _username,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Username',
+                          errorText: !_usernameValidate
+                              ? "Username cannot be empty!"
+                              : null),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: TextField(
+                      controller: _password,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Password',
+                          errorText: !_passwordValidate
+                              ? "Password cannot be empty!"
+                              : null),
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -119,8 +148,6 @@ class _LoginPageState extends State<LoginPage> {
                 width: MediaQuery.of(context).size.width,
                 height: 70,
                 child: ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width,
-                  height: 200,
                   child: ElevatedButton(
                     onPressed: () => onLogin(context),
                     style: ButtonStyle(
@@ -129,7 +156,8 @@ class _LoginPageState extends State<LoginPage> {
                           if (states.contains(MaterialState.pressed)) {
                             return Colors.grey;
                           }
-                          return Colors.black; // Use the component's default.
+                          return Color.fromRGBO(
+                              22, 199, 154, 1); // Use the component's default.
                         },
                       ),
                     ),
