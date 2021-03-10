@@ -1,4 +1,5 @@
 import 'package:covid_statistic/models/models.dart';
+import 'package:covid_statistic/utilities/token_helper.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
@@ -26,23 +27,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         final accessToken =
             await tokenRepository.fetchToken(event.username, event.password);
-        var secureStorage = FlutterSecureStorage();
-        await secureStorage.write(
-            key: StorageKey.tokenKey.toString(),
-            value: accessToken.accessToken);
-        yield LoginLoaded(isLogin: true);
+
+        if (await TokenHelper.saveToken(accessToken)) {
+          yield LoginLoaded(isLogin: true);
+        } else {
+          yield LoginError(errorMessage: "Fail to save token");
+        }
       } catch (_) {
         yield LoginError(errorMessage: _.message);
       }
     }
-    // if (event is FetchIndiaCovidReport) {
-    //   yield LoginLoading();
-    //   try {
-    //     final Login Login = await repository.fetchIndiaCovidReport();
-    //     yield LoginLoaded(Login: Login);
-    //   } catch (_) {
-    //     yield LoginError();
-    //   }
-    // }
   }
 }

@@ -16,7 +16,8 @@ class TokenApiClient {
       "password": password,
       "client_id": "muffin_owner_flow",
       "client_secret": "muffinsecret",
-      "scope": "muffinscopeapi"
+      //"scope": "muffinscopeapi"
+      "scope": "offline_access"
     };
 
     final response = await this.httpClient.post(

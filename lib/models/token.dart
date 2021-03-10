@@ -4,16 +4,26 @@ class Token extends Equatable {
   final String accessToken;
   final int expiredInSeconds;
   final String tokenType;
+  final String refreshToken;
   final String scope;
+  final DateTime expireDate;
 
-  Token({this.accessToken, this.expiredInSeconds, this.tokenType, this.scope});
+  Token(
+      {this.accessToken,
+      this.expiredInSeconds,
+      this.tokenType,
+      this.refreshToken,
+      this.scope,
+      this.expireDate});
 
   @override
   List<Object> get props => [
         accessToken,
         expiredInSeconds,
         tokenType,
+        refreshToken,
         scope,
+        expireDate
       ];
 
   static Token fromJson(dynamic json) {
@@ -21,6 +31,9 @@ class Token extends Equatable {
         accessToken: json['access_token'],
         expiredInSeconds: json['expires_in'],
         tokenType: json['token_type'],
+        refreshToken: json['refresh_token'],
+        expireDate:
+            DateTime.now().add(new Duration(seconds: json['expires_in'])),
         scope: json['scope']);
   }
 

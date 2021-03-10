@@ -1,1 +1,1 @@
-enum StorageKey { tokenKey }
+enum StorageKey { tokenKey, tokenExpireDate, refreshToken }
