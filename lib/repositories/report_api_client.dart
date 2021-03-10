@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:covid_statistic/utilities/token_helper.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'package:covid_statistic/models/models.dart';
@@ -39,13 +40,20 @@ class ReportApiClient {
     return InReport.fromJson(json);
   }
 
-  Future<InternalReport> fetchInternalCovidReport(
-      String tokenId, int countryIndex) async {
+  Future<InternalReport> fetchInternalCovidReport(int countryIndex) async {
+    var tokenDto = await TokenHelper.getAccessTokenWithRefreshCheck(httpClient);
+
+    if (!tokenDto.isSuccess) {
+      throw new Exception('error getting token id');
+    }
+
     final url =
         'http://192.168.0.142/ApiService/api/covid/' + countryIndex.toString();
     final response = await this.httpClient.get(
       url,
-      headers: {HttpHeaders.authorizationHeader: "Bearer " + tokenId},
+      headers: {
+        HttpHeaders.authorizationHeader: "Bearer " + tokenDto.accessToken
+      },
     );
 
     if (response.statusCode != 200) {

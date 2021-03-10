@@ -37,4 +37,30 @@ class TokenApiClient {
 
     return Token.fromJson(json);
   }
+
+  Future<Token> refreshToken(String refreshToken) async {
+    Map<String, dynamic> body = {
+      "grant_type": "refresh_token",
+      "client_id": "muffin_owner_flow",
+      "client_secret": "muffinsecret",
+      "refresh_token": refreshToken
+    };
+
+    final response = await this.httpClient.post(
+      Uri.http('192.168.0.142', 'identityServer/connect/token'),
+      body: body,
+      headers: {
+        "Accept": "application.json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw new Exception('error getting token');
+    }
+
+    final json = jsonDecode(response.body);
+
+    return Token.fromJson(json);
+  }
 }

@@ -1,5 +1,4 @@
 import 'package:covid_statistic/bloc/internal_report_event.dart';
-import 'package:covid_statistic/utilities/token_helper.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
@@ -23,8 +22,7 @@ class InternalReportBloc
       yield InternalReportLoading();
       try {
         final InternalReport internalReport =
-            await repository.fetchInternalCovidReport(
-                await TokenHelper.getAccessToken(), Country.India.index);
+            await repository.fetchInternalCovidReport(Country.India.index);
         yield InternalReportLoaded(internalReport: internalReport);
       } catch (e) {
         yield InternalReportError(errorMessage: e["message"]);
@@ -33,8 +31,7 @@ class InternalReportBloc
       yield InternalReportLoading();
       try {
         final InternalReport internalReport =
-            await repository.fetchInternalCovidReport(
-                await TokenHelper.getAccessToken(), Country.Malaysia.index);
+            await repository.fetchInternalCovidReport(Country.Malaysia.index);
         yield InternalReportLoaded(internalReport: internalReport);
       } catch (e) {
         yield InternalReportError(errorMessage: e["message"]);
