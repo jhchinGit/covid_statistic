@@ -21,7 +21,7 @@ class TokenApiClient {
     };
 
     final response = await this.httpClient.post(
-      Uri.http('192.168.0.142', 'identityServer/connect/token'),
+      Uri.http('192.168.50.207', 'identityServer/connect/token'),
       body: body,
       headers: {
         "Accept": "application.json",
@@ -47,7 +47,7 @@ class TokenApiClient {
     };
 
     final response = await this.httpClient.post(
-      Uri.http('192.168.0.142', 'identityServer/connect/token'),
+      Uri.http('192.168.50.207', 'identityServer/connect/token'),
       body: body,
       headers: {
         "Accept": "application.json",

@@ -12,10 +12,14 @@ class StatisticAppBar extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color.fromRGBO(246, 236, 240, 1.0),
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
         bottom: bottom,
-        backgroundColor: Color.fromRGBO(22, 199, 154, 1),
+        backgroundColor: Colors.white,
         title: Text(
           title,
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: body,

@@ -114,6 +114,7 @@ class App extends StatelessWidget {
             bottom: TabBar(
               isScrollable: true,
               indicatorColor: Color.fromRGBO(80, 80, 80, 1),
+              labelColor: Colors.black,
               tabs: [
                 Tab(
                   icon: Icon(Icons.grid_view),
