@@ -1,11 +1,9 @@
-import 'package:covid_statistic/models/models.dart';
 import 'package:covid_statistic/utilities/token_helper.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
 import 'package:covid_statistic/repositories/repositories.dart';
 import 'package:covid_statistic/bloc/bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final TokenRepository tokenRepository;
@@ -21,12 +19,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (event.username == "" || event.password == "") {
         yield LoginError(
             errorMessage: "Please key in your username and password.");
+      } else if (event.authenticationCode == "") {
+        yield LoginError(
+            errorMessage: "Please key in your authentication code.");
       }
       yield LoginLoading();
 
       try {
-        final accessToken =
-            await tokenRepository.fetchToken(event.username, event.password);
+        final accessToken = await tokenRepository.fetchToken(
+            event.username, event.password, event.authenticationCode);
 
         if (await TokenHelper.saveToken(accessToken)) {
           yield LoginLoaded(isLogin: true);

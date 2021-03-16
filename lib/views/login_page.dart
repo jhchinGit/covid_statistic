@@ -1,5 +1,6 @@
 import 'package:covid_statistic/bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,61 +13,30 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _username = TextEditingController();
   final _password = TextEditingController();
+  final _authenticationCode = TextEditingController();
   var _usernameValidate = true;
   var _passwordValidate = true;
+  var _authenticationCodeValidate = true;
 
   void onLogin(BuildContext context) {
     setState(() {
-      _username.text.isEmpty
-          ? _usernameValidate = false
-          : _usernameValidate = true;
-      _password.text.isEmpty
-          ? _passwordValidate = false
-          : _passwordValidate = true;
+      _usernameValidate = _username.text.isEmpty == false;
+      _passwordValidate = _password.text.isEmpty == false;
+      _authenticationCodeValidate = _authenticationCode.text.isEmpty == false;
     });
 
     if (isAllValid()) {
-      BlocProvider.of<LoginBloc>(context)
-          .add(FetchLogin(username: _username.text, password: _password.text));
+      BlocProvider.of<LoginBloc>(context).add(FetchLogin(
+          username: _username.text,
+          password: _password.text,
+          authenticationCode: _authenticationCode.text));
     }
   }
 
-  // void showLoginState(BuildContext context, LoginState loginState) {
-  //   if (loginState is LoginLoaded) {
-  //     showDialog(
-  //         context: context,
-  //         builder: (_) => AlertDialog(
-  //               title: Text("Well Done!"),
-  //               content: Text("Successfully login!"),
-  //               actions: [
-  //                 FlatButton(
-  //                     onPressed: () {
-  //                       Navigator.of(context).pop();
-  //                     },
-  //                     child: Text("OK"))
-  //               ],
-  //             ),
-  //         barrierDismissible: false);
-  //   } else if (loginState is LoginError) {
-  //     showDialog(
-  //         context: context,
-  //         builder: (_) => AlertDialog(
-  //               title: Text("Fail to login"),
-  //               content: Text(loginState.errorMessage),
-  //               actions: [
-  //                 FlatButton(
-  //                     onPressed: () {
-  //                       Navigator.of(context).pop();
-  //                     },
-  //                     child: Text("OK"))
-  //               ],
-  //             ),
-  //         barrierDismissible: false);
-  //   }
-  // }
-
   bool isAllValid() {
-    return _usernameValidate && _passwordValidate;
+    return _usernameValidate &&
+        _passwordValidate &&
+        _authenticationCodeValidate;
   }
 
   @override
@@ -107,7 +77,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
-              height: 230,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -125,7 +94,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    padding: EdgeInsets.only(
+                        top: 10, left: 10, right: 10, bottom: 10),
                     child: TextField(
                       controller: _password,
                       obscureText: true,
@@ -137,6 +107,21 @@ class _LoginPageState extends State<LoginPage> {
                               : null),
                     ),
                   ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: TextField(
+                        keyboardType: TextInputType.number,
+                        controller: _authenticationCode,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Authentication code',
+                            errorText: !_authenticationCodeValidate
+                                ? "Authentication code cannot be empty!"
+                                : null),
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ]),
+                  ),
                 ],
               ),
             ),
@@ -146,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                 padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                 width: MediaQuery.of(context).size.width,
-                height: 70,
+                height: 50,
                 child: ButtonTheme(
                   child: ElevatedButton(
                     onPressed: () => onLogin(context),
@@ -179,6 +164,7 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     _username.dispose();
     _password.dispose();
+    _authenticationCode.dispose();
     super.dispose();
   }
 }

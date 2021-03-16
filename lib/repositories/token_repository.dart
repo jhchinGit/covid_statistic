@@ -9,6 +9,7 @@ class TokenRepository {
   TokenRepository({@required this.tokenApiClient})
       : assert(tokenApiClient != null);
 
-  Future<Token> fetchToken(String username, String password) async =>
-      await tokenApiClient.fetchToken(username, password);
+  Future<Token> fetchToken(
+          String username, String password, String authenticationCode) async =>
+      await tokenApiClient.fetchToken(username, password, authenticationCode);
 }

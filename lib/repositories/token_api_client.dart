@@ -9,7 +9,8 @@ class TokenApiClient {
 
   TokenApiClient({@required this.httpClient}) : assert(httpClient != null);
 
-  Future<Token> fetchToken(String username, String password) async {
+  Future<Token> fetchToken(
+      String username, String password, String authenticationCode) async {
     Map<String, dynamic> body = {
       "grant_type": "password",
       "username": username,
@@ -17,11 +18,12 @@ class TokenApiClient {
       "client_id": "muffin_owner_flow",
       "client_secret": "muffinsecret",
       //"scope": "muffinscopeapi"
-      "scope": "offline_access"
+      "scope": "offline_access",
+      "totp": authenticationCode
     };
 
     final response = await this.httpClient.post(
-      Uri.http('192.168.50.207', 'identityServer/connect/token'),
+      Uri.http('192.168.0.142', 'identityServer/connect/token'),
       body: body,
       headers: {
         "Accept": "application.json",
@@ -47,7 +49,7 @@ class TokenApiClient {
     };
 
     final response = await this.httpClient.post(
-      Uri.http('192.168.50.207', 'identityServer/connect/token'),
+      Uri.http('192.168.0.142', 'identityServer/connect/token'),
       body: body,
       headers: {
         "Accept": "application.json",
