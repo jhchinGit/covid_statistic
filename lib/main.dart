@@ -1,3 +1,5 @@
+import 'package:covid_statistic/repositories/login_api_client.dart';
+import 'package:covid_statistic/repositories/login_repository.dart';
 import 'package:covid_statistic/repositories/token_api_client.dart';
 import 'package:covid_statistic/views/India_page.dart';
 import 'package:covid_statistic/views/country_list_menu.dart';
@@ -34,20 +36,30 @@ void main() {
     ),
   );
 
+  final LoginRepository loginRepository = LoginRepository(
+    loginApiClient: LoginApiClient(
+      httpClient: http.Client(),
+    ),
+  );
+
   runApp(App(
-      reportRepository: reportRepository, tokenRepository: tokenRepository));
+      reportRepository: reportRepository,
+      tokenRepository: tokenRepository,
+      loginRepository: loginRepository));
 }
 
 class App extends StatelessWidget {
   final ReportRepository reportRepository;
   final TokenRepository tokenRepository;
+  final LoginRepository loginRepository;
   final navigatorKey = GlobalKey<NavigatorState>();
 
   App(
       {Key key,
       @required this.reportRepository,
-      @required this.tokenRepository})
-      : assert(reportRepository != null),
+      @required this.tokenRepository,
+      @required this.loginRepository})
+      : assert(reportRepository != null, tokenRepository != null),
         super(key: key);
 
   @override
@@ -98,8 +110,9 @@ class App extends StatelessWidget {
                           NavigatorBloc(navigatorKey: navigatorKey),
                     ),
                     BlocProvider(
-                      create: (context) =>
-                          LoginBloc(tokenRepository: tokenRepository),
+                      create: (context) => LoginBloc(
+                          tokenRepository: tokenRepository,
+                          loginRepository: loginRepository),
                     ),
                   ],
                   child: LoginPage(),

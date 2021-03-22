@@ -48,7 +48,7 @@ class ReportApiClient {
     }
 
     final url =
-        'http://192.168.0.142/ApiService/api/covid/' + countryIndex.toString();
+        'http://192.168.0.182/ApiService/api/covid/' + countryIndex.toString();
     final response = await this.httpClient.get(
       url,
       headers: {
